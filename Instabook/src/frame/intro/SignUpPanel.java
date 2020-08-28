@@ -18,45 +18,51 @@ import javax.swing.JPasswordField;
 public class SignUpPanel {
 
 	public static JPanel signUpPanel = new JPanel();
-
+	JLabel idLabel_signUp = new JLabel("ID");
+	JTextField idTextField_signUp;
+	JLabel pwLabel_signUp = new JLabel("PASSW");
+	JPasswordField pwField_signUp;
+	JButton signUpBtn_signUp = new JButton("SIGN UP");
+	JButton backBtn_signUp = new JButton("BACK");
+	
+	
 	/**
 	 * @wbp.parser.entryPoint
 	 */
 	public JPanel showSignUpPanel() {
 
 		// id 라벨
-		JLabel idLabel_signUp = new JLabel("ID");
 		idLabel_signUp.setFont(new Font("굴림", Font.BOLD, 20));
 		idLabel_signUp.setBounds(137, 196, 31, 24);
 
 		// id 텍스트 입력
-		JTextField idTextField_signUp;
+		
 		idTextField_signUp = new JTextField();
 		idTextField_signUp.setBounds(137, 224, 266, 34);
 		idTextField_signUp.setColumns(10);
 
 		// 회원가입 라벨
-		JLabel pwLabel_signUp = new JLabel("PASSW");
+		
 		pwLabel_signUp.setFont(new Font("굴림", Font.BOLD, 20));
 		pwLabel_signUp.setBounds(137, 287, 85, 24);
 
 		//패스워드 필드
-		JPasswordField pwField_signUp;
+		
 		pwField_signUp = new JPasswordField();
 		pwField_signUp.setColumns(10);
 		pwField_signUp.setBounds(137, 315, 266, 34);
 
 		// 회원가입 버튼
-		JButton signInBtn_signUp = new JButton("SIGN UP");
-		signInBtn_signUp.addActionListener(new ActionListener() {
+		
+		signUpBtn_signUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//회원가입 테이블 쓰기
 			}
 		});
-		signInBtn_signUp.setBounds(265, 632, 126, 50);
+		signUpBtn_signUp.setBounds(265, 632, 126, 50);
 
 		// 뒤로가기 버튼
-		JButton backBtn_signUp = new JButton("BACK");
+		
 		backBtn_signUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				signUpPanel.setVisible(false);
@@ -119,7 +125,7 @@ public class SignUpPanel {
 		signUpPanel.add(idTextField_signUp);
 		signUpPanel.add(pwLabel_signUp);
 		signUpPanel.add(pwField_signUp);
-		signUpPanel.add(signInBtn_signUp);
+		signUpPanel.add(signUpBtn_signUp);
 		signUpPanel.add(backBtn_signUp);
 		signUpPanel.add(confPwField_signUp);
 		signUpPanel.add(sexLabel_signUp);

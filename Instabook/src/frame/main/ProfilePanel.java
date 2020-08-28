@@ -32,10 +32,9 @@ public class ProfilePanel extends JPanel {
 //	}
 	
 	public ProfilePanel() {
-
+		// frame에서 패널 위치 설정 및 레이아웃 크기
 		setLayout(null);
 		setSize(500, 600);
-		setVisible(true);
 		setBounds(100, 100, 400, 510);
 
 		JButton profile_mainPic_btn = new JButton("사진");
@@ -43,16 +42,12 @@ public class ProfilePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				RootFrame.profilePn.setVisible(false);
-				RootFrame.postFixPn.setVisible(true);
+				RootFrame.detailPn.setVisible(true);
 				
 			}
 		});
 		profile_mainPic_btn.setBounds(43, 92, 304, 344);
 		add(profile_mainPic_btn);
-
-		// frame에서 패널 위치 설정 및 레이아웃 크기
-		setBounds(100, 100, 400, 510);
-		setLayout(null);
 
 		JLabel profile_nickname_Label = new JLabel("nick name");
 		profile_nickname_Label.setBounds(245, 42, 102, 23);
@@ -61,6 +56,8 @@ public class ProfilePanel extends JPanel {
 		JLabel profile_headPic_Label = new JLabel("프로필 이미지");
 		profile_headPic_Label.setBounds(54, 32, 82, 42);
 		add(profile_headPic_Label);
+		
+		setVisible(true);
 
 	}
 }

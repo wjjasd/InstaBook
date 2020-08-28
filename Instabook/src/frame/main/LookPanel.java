@@ -67,7 +67,5 @@ public class LookPanel extends JPanel {
 		
 		setVisible(true);
 
-//		PostPanel.setLocation(null);
-
 	}
 }
