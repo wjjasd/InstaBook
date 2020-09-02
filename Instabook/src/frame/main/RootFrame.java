@@ -29,16 +29,16 @@ public class RootFrame extends JFrame {
 	 */
 	
 	//디자인에 사용하는 임시 main
-//	public static void main(String[] args) {
-//		RootFrame root = new RootFrame();
-//		root.setVisible(true);
-//	}
+	public static void main(String[] args) {
+		RootFrame root = new RootFrame();
+		root.setVisible(true);
+	}
 	
 	public RootFrame() {
 
 		setSize(600, 900);
 		getContentPane().setLayout(null);
-
+		
 		getContentPane().setBackground(Color.GRAY);
 		getContentPane().add(homePn);
 		getContentPane().add(lookPn);

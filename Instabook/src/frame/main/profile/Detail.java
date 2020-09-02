@@ -48,7 +48,7 @@ public class Detail extends JPanel {
 		setBounds(100, 100, 400, 510);
 		
 		JButton detail_header_pic_btn  = new JButton();
-		ImageIcon img = new ImageIcon("..\\Instabook\\src\\images\\myProfileImg.png");
+		ImageIcon img = new ImageIcon("..\\TheJoEnProject1\\Instabook\\src\\images\\myProfileImg.png");
 		Image pic = img.getImage(); // ImageIcon을 Image로 변환.(객체를 돌려준다.)
 		Image picCh = pic.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);// 이미지 사이즈 조정
 		ImageIcon iconCh = new ImageIcon(picCh); // Image로 ImageIcon 생성
@@ -61,11 +61,11 @@ public class Detail extends JPanel {
 		detail_header_pic_btn.setContentAreaFilled(false);
 
 		detail_header_pic_btn.setBounds(24, 21, 97, 58);
-		detail_header_pic_btn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog( detail_header_pic_btn,"난 이미지에요.");
-			}
-		});
+//		detail_header_pic_btn.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				JOptionPane.showMessageDialog( detail_header_pic_btn,"난 이미지에요.");
+//			}
+//		});
 		detail_header_pic_btn.setIcon(iconCh);
 		add(detail_header_pic_btn);
 
