@@ -2,12 +2,26 @@ package frame.main;
 
 import javax.swing.JPanel;
 
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 
-public class PostPanel extends JPanel {
+import db.PostTb;
+import frame.main.profile.Detail;
+import frame.main.profile.PostFix;
 
+public class PostPanel extends JPanel {
+	
+	public static HomePanel homePn = new HomePanel();
+	public static PostPanel postPn = new PostPanel();
+	public static File post_img_path;
+	
 	/**
 	 * 
 	 */
@@ -32,21 +46,44 @@ public class PostPanel extends JPanel {
 //	}
 	
 	public PostPanel() {
-
+		
 		setLayout(null);
 		setSize(500, 600);
 		setVisible(true);
 		setBounds(100, 100, 400, 510);
 
-		// 이미지1
-//		ImageIcon img = new ImageIcon("flower.jpg");
-
-		setBounds(100, 100, 400, 510);
-		setLayout(null);
-
-		JButton post_mainPic_btn = new JButton("이미지");
+		JButton post_mainPic_btn = new JButton("이미지 추가");
 		post_mainPic_btn.setBounds(68, 45, 260, 238);
+		// 버튼 테두리 없애기
+//		post_mainPic_btn.setBorderPainted(false);
+		// 버튼 글자 테두리 없애기
+		post_mainPic_btn.setFocusPainted(false);
+		// 버튼 배경색 없애기
+		post_mainPic_btn.setContentAreaFilled(false);
 		add(post_mainPic_btn);
+		
+		post_mainPic_btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				JFileChooser post_img_file = new JFileChooser();
+				int img_file = post_img_file.showOpenDialog(post_mainPic_btn);
+				if (img_file == JFileChooser.APPROVE_OPTION) { 
+					//선택한 파일의 경로 반환 
+					post_img_path = post_img_file.getSelectedFile();
+					//경로 출력 
+					System.out.println(post_img_path);
+					
+					ImageIcon img = new ImageIcon(post_img_path.getPath());
+					Image pic = img.getImage(); // ImageIcon을 Image로 변환.(객체를 돌려준다.)
+					Image picCh = pic.getScaledInstance(450, 500, java.awt.Image.SCALE_SMOOTH);// 이미지 사이즈 조정
+					ImageIcon iconCh = new ImageIcon(picCh); // Image로 ImageIcon 생성
+					
+					post_mainPic_btn.setIcon(iconCh);
+					add(post_mainPic_btn);
+				}
+
+			}
+		});
 
 		JTextArea post_hash_input = new JTextArea();
 		post_hash_input.setBounds(68, 309, 260, 42);
@@ -55,6 +92,28 @@ public class PostPanel extends JPanel {
 		JButton post_put_btn = new JButton("입력완료");
 		post_put_btn.setBounds(123, 403, 142, 52);
 		add(post_put_btn);
+		
+		
+		post_put_btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//게시물 값 가져오기
+				PostTb PostTb = new PostTb();
+				//파일로 선택한 이미지 경로 img 변수에 저장.
+				String img = post_img_path.getPath();
+				String hash = post_hash_input.getText();
+				try {
+					//값이 들어가는 것을 확인하기 user_Tb의 id_user값 기준으로 임의값 입력
+					PostTb.createTb("d", "20.09.02", hash, img, 0);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				
+				postPn.revalidate();
+				postPn.repaint();
+				RootFrame.postPn.setVisible(false);
+				RootFrame.homePn.setVisible(true);
+			}
+		});
 		setVisible(true);
 
 	}

@@ -31,6 +31,9 @@ public class LogInFrame {
 	// visibility만 조정해줌
 
 	public static JPanel logInPanel;
+	public static String userId = "";
+
+	
 
 	// 프로그램 시작점
 	public static void main(String[] args) {
@@ -151,6 +154,7 @@ public class LogInFrame {
 								RootFrame root = new RootFrame();
 								root.setVisible(true);
 								frame.setVisible(false);
+								userId = inputId;
 							} else {
 								System.out.println("로그인 오류");
 							}

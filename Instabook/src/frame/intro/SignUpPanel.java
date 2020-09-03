@@ -118,7 +118,7 @@ public class SignUpPanel {
 				String gender = mGender;
 				String birth = birthTextField_signUp.getText().toString();
 				// 회원가입 테이블 쓰기
-				boolean result = UserTb.insert(id, pwStr, name, img, gender, birth);
+				boolean result = UserTb.signUp(id, pwStr, name, img, gender, birth);
 				if (result) {
 					JOptionPane.showMessageDialog(signUpPanel, "회원가입 성공!");
 					signUpPanel.setVisible(false);

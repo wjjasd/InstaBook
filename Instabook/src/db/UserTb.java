@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+//test
 public class UserTb {
 
 	private final static String url = "jdbc:mysql://localhost:3306/instabook";
@@ -33,7 +34,7 @@ public class UserTb {
 
 	}
 
-	public static boolean insert(String id, String pw, String nickName, String profileImg, String gender,
+	public static boolean signUp(String id, String pw, String nickName, String profileImg, String gender,
 			String birth) {
 		boolean result = false;
 
@@ -57,6 +58,9 @@ public class UserTb {
 			System.out.println("4. 네트워크로 전송 성공!");
 			result = true;
 
+			con.close();
+			ps.close();
+
 		} catch (Exception e) {
 			System.out.println("connection failed");
 		}
@@ -65,7 +69,7 @@ public class UserTb {
 
 	public static String logIn(String id) {
 		String pw = "";
-	
+
 		try {
 
 			setDb_user();
@@ -84,6 +88,9 @@ public class UserTb {
 				System.out.println("결과검색중...");
 			}
 
+			con.close();
+			ps.close();
+
 		} catch (Exception e) {
 			System.out.println("connection failed");
 		}
@@ -91,12 +98,70 @@ public class UserTb {
 		return pw;
 
 	}
-	
+
+	public static boolean updateProfile(String userId, String filePath) {
+		boolean result = false;
+		try {
+
+			setDb_user();
+			String sql = "update user_insta set img_user = \'" + filePath + "\' where id_user = \'" + userId + "\';";
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			System.out.println("3. sql문 생성 성공!");
+			System.out.println("프로필 이미지 갱신중...");
+
+			// 4.sql문 실행
+			ps.executeLargeUpdate();
+			System.out.println("4. 네트워크로 전송 성공!");
+			result = true;
+
+			con.close();
+			ps.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	public static String getProfile(String userId) {
+		String url = "";
+		try {
+
+			setDb_user();
+			String sql = "select img_user from user_insta where id_user = " + "\'" + userId + "\'";
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			System.out.println("3. sql문 생성 성공!");
+			System.out.println("프로필 이미지 갱신중...");
+
+			// 4.sql문 실행
+			ResultSet rs = ps.executeQuery();
+			System.out.println("4. 네트워크로 전송 성공!");
+
+			while (rs.next()) {
+				url = rs.getString("img_user");
+				System.out.println("프로필 이미지 얻어오는중...");
+			}
+
+			con.close();
+			ps.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return url;
+	}
+
 	public static boolean idcheck(String id) {
-		
+
 		String dbId = "";
 		boolean result = false;
-		
+
 		try {
 
 			setDb_user();
@@ -113,16 +178,18 @@ public class UserTb {
 			while (rs.next()) {
 				dbId = rs.getString("id_user");
 				System.out.println("ID 검색중...");
-				
+
 			}
-			
+
+			con.close();
+			ps.close();
 
 		} catch (Exception e) {
 			System.out.println("connection failed");
 			result = false;
 		}
-		
-		if(dbId != "") {
+
+		if (dbId != "") {
 			result = true;
 		}
 

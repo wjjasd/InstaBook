@@ -2,13 +2,18 @@ package frame.main;
 
 import javax.swing.JPanel;
 
+import db.UserTb;
+import frame.intro.LogInFrame;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -87,7 +92,40 @@ public class ProfilePanel extends JPanel {
 		JButton profileBtn_profilPn = new JButton();
 		profileBtn_profilPn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog( null,"난 이미지에요.");
+				JFileChooser profile = new JFileChooser();
+				int dialogOption = profile.showOpenDialog(profileBtn_profilPn);
+				if(dialogOption == JFileChooser.APPROVE_OPTION) {
+					File imgFile = profile.getSelectedFile();
+					System.out.println(imgFile);
+					String filePath = imgFile.getPath();
+					//선택한 파일 경로 디비 저장
+					String id = LogInFrame.userId;
+					boolean result = UserTb.updateProfile(id, filePath);
+					
+					if(result) {
+						//방금 저장한 이미지 경로 읽고 적용 되는지 테스트
+//						1. 바로 적용
+						ImageIcon img = new ImageIcon(filePath);
+						Image pic = img.getImage(); // ImageIcon을 Image로 변환.(객체를 돌려준다.)
+						Image picCh = pic.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);// 이미지 사이즈 조정
+						ImageIcon iconCh = new ImageIcon(picCh); // Image로 ImageIcon 생성
+						profileBtn_profilPn.setIcon(iconCh);
+						//적용됨
+						
+// 						2. DB에서 불러온 경로 적용안됨
+//						String url = UserTb.getProfile(id);
+//						System.out.println(url);
+//						ImageIcon img = new ImageIcon(url);
+//						Image pic = img.getImage(); // ImageIcon을 Image로 변환.(객체를 돌려준다.)
+//						Image picSI = pic.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);// 이미지 사이즈 조정
+//						ImageIcon resizedIc = new ImageIcon(picSI);
+//						profileBtn_profilPn.setIcon(resizedIc);
+					}
+					
+					
+					
+					
+				}
 			}
 		});
 		ImageIcon img = new ImageIcon("..\\TheJoEnProject1\\Instabook\\src\\images\\myProfileImg.png");
