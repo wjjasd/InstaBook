@@ -1,5 +1,6 @@
 package db;
 
+import java.io.File;
 import java.sql.Connection;
 
 import java.sql.DriverManager;
@@ -85,7 +86,7 @@ public class UserTb {
 
 			while (rs.next()) {
 				pw = rs.getString("pw_user");
-				System.out.println("결과검색중...");
+				System.out.println("PW 검색중...");
 			}
 
 			con.close();
@@ -104,11 +105,13 @@ public class UserTb {
 		try {
 
 			setDb_user();
+			System.out.println("프로필 이미지 갱신중...");
+			filePath = filePath.replaceAll("\\\\", "\\\\\\\\");
+			System.out.println("파일경로 역슬래쉬 처리 : " + filePath);
 			String sql = "update user_insta set img_user = \'" + filePath + "\' where id_user = \'" + userId + "\';";
 			PreparedStatement ps = con.prepareStatement(sql);
 
 			System.out.println("3. sql문 생성 성공!");
-			System.out.println("프로필 이미지 갱신중...");
 
 			// 4.sql문 실행
 			ps.executeLargeUpdate();
@@ -131,11 +134,11 @@ public class UserTb {
 		try {
 
 			setDb_user();
+			System.out.println("프로필 이미지 갱신중...");
 			String sql = "select img_user from user_insta where id_user = " + "\'" + userId + "\'";
 			PreparedStatement ps = con.prepareStatement(sql);
 
 			System.out.println("3. sql문 생성 성공!");
-			System.out.println("프로필 이미지 갱신중...");
 
 			// 4.sql문 실행
 			ResultSet rs = ps.executeQuery();
@@ -143,7 +146,8 @@ public class UserTb {
 
 			while (rs.next()) {
 				url = rs.getString("img_user");
-				System.out.println("프로필 이미지 얻어오는중...");
+				System.out.println("img 검색중...");
+
 			}
 
 			con.close();
@@ -191,6 +195,7 @@ public class UserTb {
 
 		if (dbId != "") {
 			result = true;
+			System.out.println("ID 유효");
 		}
 
 		return result;

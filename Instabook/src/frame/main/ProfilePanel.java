@@ -98,8 +98,10 @@ public class ProfilePanel extends JPanel {
 					File imgFile = profile.getSelectedFile();
 					System.out.println(imgFile);
 					String filePath = imgFile.getPath();
+					System.out.println("DB저장전 URL : " + filePath);
 					//선택한 파일 경로 디비 저장
 					String id = LogInFrame.userId;
+					System.out.println("로그인된 아이디 : " + id );
 					boolean result = UserTb.updateProfile(id, filePath);
 					
 					if(result) {
@@ -121,14 +123,15 @@ public class ProfilePanel extends JPanel {
 //						ImageIcon resizedIc = new ImageIcon(picSI);
 //						profileBtn_profilPn.setIcon(resizedIc);
 					}
-					
-					
-					
-					
 				}
 			}
 		});
-		ImageIcon img = new ImageIcon("..\\TheJoEnProject1\\Instabook\\src\\images\\myProfileImg.png");
+		
+		String id = LogInFrame.userId;
+		System.out.println("로그인된 아이디 : " + id );
+		String imgUrl = UserTb.getProfile(id);
+		System.out.println("현재 설정된 프로필 이미지의 경로 : " + imgUrl);
+		ImageIcon img = new ImageIcon(imgUrl); 
 		Image pic = img.getImage(); // ImageIcon을 Image로 변환.(객체를 돌려준다.)
 		Image picCh = pic.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);// 이미지 사이즈 조정
 		ImageIcon iconCh = new ImageIcon(picCh); // Image로 ImageIcon 생성

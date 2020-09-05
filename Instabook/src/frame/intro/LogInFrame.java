@@ -145,6 +145,7 @@ public class LogInFrame {
 
 							if (inputPwStr.equals(dbPw)) {
 								validity = true;
+								userId = inputId;
 							} else {
 								JOptionPane.showMessageDialog(frame, "비밀번호를 확인해 주세요");
 							}
@@ -154,7 +155,8 @@ public class LogInFrame {
 								RootFrame root = new RootFrame();
 								root.setVisible(true);
 								frame.setVisible(false);
-								userId = inputId;
+								
+								System.out.println("로그인  성공");
 							} else {
 								System.out.println("로그인 오류");
 							}
