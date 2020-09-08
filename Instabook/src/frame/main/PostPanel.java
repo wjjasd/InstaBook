@@ -12,7 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 
-import db.PostTb;
+import db.PostDAO;
+import db.PostVO;
 import frame.main.profile.Detail;
 import frame.main.profile.PostFix;
 
@@ -97,13 +98,24 @@ public class PostPanel extends JPanel {
 		post_put_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//게시물 값 가져오기
-				PostTb PostTb = new PostTb();
+				PostDAO PostTb = new PostDAO();
 				//파일로 선택한 이미지 경로 img 변수에 저장.
 				String img = post_img_path.getPath();
 				String hash = post_hash_input.getText();
 				try {
 					//값이 들어가는 것을 확인하기 user_Tb의 id_user값 기준으로 임의값 입력
-					PostTb.createTb("d", "20.09.02", hash, img, 0);
+					
+					PostVO postSet = new PostVO();
+					postSet.setId_user("d");
+					postSet.setDate_post("20.09.02");
+					postSet.setHash_post(hash);
+					postSet.setImg_post(img);
+					postSet.setLike_post2(0);
+					
+					PostTb.createTb(postSet);
+					
+					
+//					PostTb.createTb("d", "20.09.02", hash, img, 0);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}

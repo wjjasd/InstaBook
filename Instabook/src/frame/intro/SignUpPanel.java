@@ -19,7 +19,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import db.UserTb;
+import db.UserDAO;
+import db.UserVO;
 
 //회원가입화면
 public class SignUpPanel {
@@ -114,11 +115,19 @@ public class SignUpPanel {
 					pwStr += pw[i];
 				}
 				String name = nameTextField_signUp.getText().toString();
-				String img = null;
 				String gender = mGender;
 				String birth = birthTextField_signUp.getText().toString();
+		
+				UserVO userDataSet = new UserVO();
+				userDataSet.setId_user(id);
+				userDataSet.setPw_user(pwStr);
+				userDataSet.setNickname_user(name);
+				userDataSet.setGender_user(gender);
+				userDataSet.setBirth_user(birth);
+				
+				
 				// 회원가입 테이블 쓰기
-				boolean result = UserTb.signUp(id, pwStr, name, img, gender, birth);
+				boolean result = UserDAO.signUp(userDataSet);
 				if (result) {
 					JOptionPane.showMessageDialog(signUpPanel, "회원가입 성공!");
 					signUpPanel.setVisible(false);

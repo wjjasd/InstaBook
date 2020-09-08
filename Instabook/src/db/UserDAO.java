@@ -1,6 +1,5 @@
 package db;
 
-import java.io.File;
 import java.sql.Connection;
 
 import java.sql.DriverManager;
@@ -9,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 //test
-public class UserTb {
+public class UserDAO {
 
 	private final static String url = "jdbc:mysql://localhost:3306/instabook";
 	private final static String user = "java";
@@ -35,22 +34,26 @@ public class UserTb {
 
 	}
 
-	public static boolean signUp(String id, String pw, String nickName, String profileImg, String gender,
-			String birth) {
+	public static boolean signUp(UserVO userDataSet) {
 		boolean result = false;
+		
+		String id = userDataSet.getId_user();
+		String pw = userDataSet.getPw_user();
+		String nickName = userDataSet.getId_user();
+		String gender = userDataSet.getGender_user();
+		String birth = userDataSet.getBirth_user();
 
 		try {
 			setDb_user();
 			// 3. sql문
-			String sql = "insert into user_insta values (?,?,?,?,?,?)";
+			String sql = "insert into user_insta values (?,?,?,null,?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
 			// 인덱스 1부터시작!!!!
 			ps.setString(1, id);
 			ps.setString(2, pw);
 			ps.setString(3, nickName);
-			ps.setString(4, profileImg);
-			ps.setString(5, gender);
-			ps.setString(6, birth);
+			ps.setString(4, gender);
+			ps.setString(5, birth);
 
 			System.out.println("3. sql문 생성 성공!");
 
@@ -161,7 +164,7 @@ public class UserTb {
 		return url;
 	}
 
-	public static boolean idcheck(String id) {
+	public static boolean idcheck(String userId) {
 
 		String dbId = "";
 		boolean result = false;
@@ -170,7 +173,7 @@ public class UserTb {
 
 			setDb_user();
 			// 3. sql문
-			String sql = "select id_user from user_insta where id_user = " + "\'" + id + "\'";
+			String sql = "select id_user from user_insta where id_user = " + "\'" + userId + "\'";
 			PreparedStatement ps = con.prepareStatement(sql);
 
 			System.out.println("3. sql문 생성 성공!");
@@ -200,6 +203,47 @@ public class UserTb {
 
 		return result;
 
+	}
+	
+	public static String getNickname(String userId) {
+		String nickname = null;
+		
+		try {
+
+			setDb_user();
+			System.out.println("nickname 가져오는중...");
+			String sql = "select nickname_user from user_insta where id_user = " + "\'" + userId + "\'";
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			System.out.println("3. sql문 생성 성공!");
+
+			// 4.sql문 실행
+			ResultSet rs = ps.executeQuery();
+			System.out.println("4. 네트워크로 전송 성공!");
+
+			int size = 0;
+			while (rs.next()) {
+				nickname = rs.getString("nickname_user");
+				System.out.println("nickname 검색중...");
+				size++;
+			}
+			
+			if(size > 0) {
+				System.out.println("사용자 별명 : " + nickname);
+			}else {
+				nickname = null;
+			}
+
+			con.close();
+			ps.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return nickname;
 	}
 
 }

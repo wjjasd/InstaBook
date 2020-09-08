@@ -2,7 +2,7 @@ package frame.main;
 
 import javax.swing.JPanel;
 
-import db.UserTb;
+import db.UserDAO;
 import frame.intro.LogInFrame;
 
 import javax.swing.JLabel;
@@ -17,6 +17,8 @@ import java.io.File;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class ProfilePanel extends JPanel {
 
@@ -58,6 +60,29 @@ public class ProfilePanel extends JPanel {
 //		profileBtn_profilPn.setBounds(46, 10, 70, 59);
 //		profile.add(profileBtn_profilPn);
 //		
+//		JPanel userInfoPn = new JPanel();
+//		userInfoPn.setBackground(Color.WHITE);
+//		userInfoPn.setBounds(128, 10, 217, 78);
+//		profile.add(userInfoPn);
+//		userInfoPn.setLayout(null);
+//		
+//		JLabel lblNewLabel = new JLabel("id      :");
+//		lblNewLabel.setBounds(12, 21, 66, 15);
+//		userInfoPn.add(lblNewLabel);
+//		
+//		JLabel lblNickname = new JLabel("name :");
+//		lblNickname.setBounds(12, 46, 66, 15);
+//		userInfoPn.add(lblNickname);
+//		
+//		JLabel lblNewLabel_1 = new JLabel("asdasd@aasdsd.com");
+//		lblNewLabel_1.setBounds(61, 21, 142, 15);
+//		userInfoPn.add(lblNewLabel_1);
+//		
+//		JLabel lblNewLabel_1_1 = new JLabel("usernickname");
+//		lblNewLabel_1_1.setBackground(Color.LIGHT_GRAY);
+//		lblNewLabel_1_1.setBounds(61, 46, 142, 15);
+//		userInfoPn.add(lblNewLabel_1_1);
+//		
 //		frame.getContentPane().setBackground(Color.GRAY);
 //		frame.setSize(600, 900);
 //		frame.getContentPane().setLayout(null);
@@ -67,6 +92,9 @@ public class ProfilePanel extends JPanel {
 //	}
 	
 	public ProfilePanel() {
+		
+		String id_user = LogInFrame.userId;
+		
 		// frame에서 패널 위치 설정 및 레이아웃 크기
 		setLayout(null);
 		setSize(500, 600);
@@ -85,9 +113,7 @@ public class ProfilePanel extends JPanel {
 		profile_mainPic_btn.setBounds(43, 92, 304, 344);
 		add(profile_mainPic_btn);
 
-		JLabel profile_nickname_Label = new JLabel("nick name");
-		profile_nickname_Label.setBounds(245, 42, 102, 23);
-		add(profile_nickname_Label);
+		
 		
 		JButton profileBtn_profilPn = new JButton();
 		profileBtn_profilPn.addActionListener(new ActionListener() {
@@ -102,34 +128,41 @@ public class ProfilePanel extends JPanel {
 					//선택한 파일 경로 디비 저장
 					String id = LogInFrame.userId;
 					System.out.println("로그인된 아이디 : " + id );
-					boolean result = UserTb.updateProfile(id, filePath);
+					boolean result = UserDAO.updateProfile(id, filePath);
 					
 					if(result) {
-						//방금 저장한 이미지 경로 읽고 적용 되는지 테스트
-//						1. 바로 적용
+						
+						//방금 저장한 이미지 경로 읽고 적용
 						ImageIcon img = new ImageIcon(filePath);
 						Image pic = img.getImage(); // ImageIcon을 Image로 변환.(객체를 돌려준다.)
 						Image picCh = pic.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);// 이미지 사이즈 조정
 						ImageIcon iconCh = new ImageIcon(picCh); // Image로 ImageIcon 생성
 						profileBtn_profilPn.setIcon(iconCh);
-						//적용됨
-						
-// 						2. DB에서 불러온 경로 적용안됨
-//						String url = UserTb.getProfile(id);
-//						System.out.println(url);
-//						ImageIcon img = new ImageIcon(url);
-//						Image pic = img.getImage(); // ImageIcon을 Image로 변환.(객체를 돌려준다.)
-//						Image picSI = pic.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);// 이미지 사이즈 조정
-//						ImageIcon resizedIc = new ImageIcon(picSI);
-//						profileBtn_profilPn.setIcon(resizedIc);
+
 					}
 				}
 			}
 		});
 		
-		String id = LogInFrame.userId;
-		System.out.println("로그인된 아이디 : " + id );
-		String imgUrl = UserTb.getProfile(id);
+		JPanel userInfoPn = new JPanel();
+		userInfoPn.setBackground(Color.WHITE);
+		userInfoPn.setBounds(128, 10, 217, 78);
+		add(userInfoPn);
+		userInfoPn.setLayout(null);
+		
+		JLabel idLb = new JLabel("id       : " + id_user);
+		idLb.setBounds(12, 21, 193, 15);
+		userInfoPn.add(idLb);
+		
+		String nickName = UserDAO.getNickname(id_user);
+		JLabel nameLb = new JLabel("name : " + nickName);
+		nameLb.setBounds(12, 46, 193, 15);
+		userInfoPn.add(nameLb);
+		
+		
+		
+		System.out.println("로그인된 아이디 : " + id_user );
+		String imgUrl = UserDAO.getProfile(id_user);
 		System.out.println("현재 설정된 프로필 이미지의 경로 : " + imgUrl);
 		ImageIcon img = new ImageIcon(imgUrl); 
 		Image pic = img.getImage(); // ImageIcon을 Image로 변환.(객체를 돌려준다.)

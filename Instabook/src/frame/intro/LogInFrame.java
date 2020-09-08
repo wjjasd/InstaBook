@@ -16,7 +16,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import db.UserTb;
+import db.UserDAO;
 import frame.main.RootFrame;
 import javax.swing.ImageIcon;
 
@@ -137,11 +137,11 @@ public class LogInFrame {
 
 					} else {
 						// 아이디 비밀번호 다 입력 했을때
-						boolean idCheck = UserTb.idcheck(inputId); // 아이디 존재하는지 먼저 확인
+						boolean idCheck = UserDAO.idcheck(inputId); // 아이디 존재하는지 먼저 확인
 						if (!idCheck) {
 							JOptionPane.showMessageDialog(frame, "아이디를 확인해 주세요");
 						} else {
-							String dbPw = UserTb.logIn(inputId); // DB에서 입력한 id에 맞는 비밀번호를 검색
+							String dbPw = UserDAO.logIn(inputId); // DB에서 입력한 id에 맞는 비밀번호를 검색
 
 							if (inputPwStr.equals(dbPw)) {
 								validity = true;
