@@ -6,6 +6,8 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,6 +16,8 @@ import javax.swing.JTextArea;
 
 import db.PostDAO;
 import db.PostVO;
+import db.UserDAO;
+import frame.intro.LogInFrame;
 import frame.main.profile.Detail;
 import frame.main.profile.PostFix;
 
@@ -47,7 +51,9 @@ public class PostPanel extends JPanel {
 //	}
 	
 	public PostPanel() {
-		
+		// 로그인 된 아이디 값 확인.
+		String id_user = LogInFrame.userId;
+				
 		setLayout(null);
 		setSize(500, 600);
 		setVisible(true);
@@ -106,11 +112,15 @@ public class PostPanel extends JPanel {
 					//값이 들어가는 것을 확인하기 user_Tb의 id_user값 기준으로 임의값 입력
 					
 					PostVO postSet = new PostVO();
-					postSet.setId_user("d");
-					postSet.setDate_post("20.09.02");
+					postSet.setId_user(id_user);
+					//오늘 날짜 계산 부품
+					SimpleDateFormat sdf = new SimpleDateFormat("yy" +"."+"MM"+"."+"dd");
+					Calendar c1 = Calendar.getInstance();
+					String strToday = sdf.format(c1.getTime());
+					postSet.setDate_post(strToday);
 					postSet.setHash_post(hash);
 					postSet.setImg_post(img);
-					postSet.setLike_post2(0);
+					postSet.setLike_post(0);
 					
 					PostTb.createTb(postSet);
 					
@@ -124,6 +134,10 @@ public class PostPanel extends JPanel {
 				postPn.repaint();
 				RootFrame.postPn.setVisible(false);
 				RootFrame.homePn.setVisible(true);
+				
+				//이미지와 텍스트에리어 초기화 시키기
+				post_mainPic_btn.setIcon(null);
+				post_hash_input.setText("");
 			}
 		});
 		setVisible(true);

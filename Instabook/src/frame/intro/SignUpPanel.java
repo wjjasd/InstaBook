@@ -33,7 +33,7 @@ public class SignUpPanel {
 	private JTextField nameTextField_signUp;
 	private String mGender;
 	private JPasswordField confPwField_signUp;
-	private JLabel sexLabel_signUp = new JLabel("Gender");
+	private JLabel genderLabel_signUp = new JLabel("Gender");
 	private JLabel confPLabel_signUp = new JLabel("Repeat Password");
 	private JTextField birthTextField_signUp;
 	private JLabel birthLabel_signUp = new JLabel("Date of birth");
@@ -156,8 +156,8 @@ public class SignUpPanel {
 
 		// 성별 라벨
 
-		sexLabel_signUp.setFont(new Font("굴림", Font.BOLD, 20));
-		sexLabel_signUp.setBounds(137, 431, 103, 24);
+		genderLabel_signUp.setFont(new Font("굴림", Font.BOLD, 20));
+		genderLabel_signUp.setBounds(137, 431, 103, 24);
 
 		// 비밀번호 확인 라벨
 
@@ -167,7 +167,6 @@ public class SignUpPanel {
 		// 생년월일 입력
 
 		birthTextField_signUp = new JTextField();
-		birthTextField_signUp.setToolTipText("19921102");
 		birthTextField_signUp.setColumns(8);
 		birthTextField_signUp.setBounds(137, 520, 266, 34);
 		birthTextField_signUp.setText(birthHint);
@@ -199,8 +198,6 @@ public class SignUpPanel {
 					birthTextField_signUp.setText(birthTextField_signUp.getText());
 					birthTextField_signUp.setFont(gainFont);
 				}
-
-				
 			}
 		});
 		
@@ -218,7 +215,8 @@ public class SignUpPanel {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-
+				// 체크박스 '남' 선택시 전역변수 mGender에 m대입
+				// 그룹으로 묶이면 무조건 하나 선택 하기때문에 여성은 코딩안해도됨
 				if (e.getStateChange() == 1) {
 					mGender = "m";
 //					System.out.println("남");
@@ -255,7 +253,7 @@ public class SignUpPanel {
 		signUpPanel.add(signUpBtn_signUp);
 		signUpPanel.add(backBtn_signUp);
 		signUpPanel.add(confPwField_signUp);
-		signUpPanel.add(sexLabel_signUp);
+		signUpPanel.add(genderLabel_signUp);
 		signUpPanel.add(confPLabel_signUp);
 		signUpPanel.add(birthTextField_signUp);
 		signUpPanel.add(birthLabel_signUp);

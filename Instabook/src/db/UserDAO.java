@@ -205,6 +205,88 @@ public class UserDAO {
 
 	}
 	
+	public static String getGender(String userId) {
+		String gender = null;
+		
+		try {
+
+			setDb_user();
+			System.out.println("gender 가져오는중...");
+			String sql = "select gender_user from user_insta where id_user = " + "\'" + userId + "\'";
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			System.out.println("3. sql문 생성 성공!");
+
+			// 4.sql문 실행
+			ResultSet rs = ps.executeQuery();
+			System.out.println("4. 네트워크로 전송 성공!");
+
+			int size = 0;
+			while (rs.next()) {
+				gender = rs.getString("gender_user");
+				System.out.println("gender 검색중...");
+				size++;
+			}
+			
+			if(size > 0) {
+				System.out.println("사용자 성별 : " + gender);
+			}else {
+				gender = null;
+			}
+
+			con.close();
+			ps.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return gender;
+	}
+	
+	public static String getBirth(String userId) {
+		String birth = null;
+		
+		try {
+
+			setDb_user();
+			System.out.println("birth 가져오는중...");
+			String sql = "select birth_user from user_insta where id_user = " + "\'" + userId + "\'";
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			System.out.println("3. sql문 생성 성공!");
+
+			// 4.sql문 실행
+			ResultSet rs = ps.executeQuery();
+			System.out.println("4. 네트워크로 전송 성공!");
+
+			int size = 0;
+			while (rs.next()) {
+				birth = rs.getString("birth_user");
+				System.out.println("birth 검색중...");
+				size++;
+			}
+			
+			if(size > 0) {
+				System.out.println("사용자 출생일 : " + birth);
+			}else {
+				birth = null;
+			}
+
+			con.close();
+			ps.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return birth;
+	}
+	
 	public static String getNickname(String userId) {
 		String nickname = null;
 		
@@ -244,6 +326,44 @@ public class UserDAO {
 		
 		
 		return nickname;
+	}
+	
+	public static boolean updateUserInfo(UserVO userDataSet) {
+		boolean result = false;
+		
+		String id = userDataSet.getId_user();
+		String pw = userDataSet.getPw_user();
+		String nickName = userDataSet.getId_user();
+		String gender = userDataSet.getGender_user();
+		String birth = userDataSet.getBirth_user();
+
+		try {
+			setDb_user();
+			// 3. sql문
+			String sql = "update user_insta set "
+					+ "pw_user = '"+pw+"', "
+					+ "nickname_user = '"+nickName+"', "
+					+ "gender_user = '"+gender+"', "
+					+ "birth_user = '"+birth+"' "
+					+ "where id_user = '"+id+"'";
+			PreparedStatement ps = con.prepareStatement(sql);
+			// 인덱스 1부터시작!!!!
+			
+			System.out.println("3. sql문 생성 성공!");
+
+			// 4.sql문 실행
+			ps.executeLargeUpdate();
+			System.out.println("4. 네트워크로 전송 성공!");
+			result = true;
+
+			con.close();
+			ps.close();
+
+		} catch (Exception e) {
+			System.out.println("회원정보 수정실패");
+			System.out.println(e.toString());
+		}
+		return result;
 	}
 
 }

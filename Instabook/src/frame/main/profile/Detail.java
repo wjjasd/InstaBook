@@ -3,27 +3,28 @@ package frame.main.profile;
 import javax.swing.JPanel;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 
 import java.awt.event.ActionListener;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextPane;
 
+import db.PostDAO;
+import db.PostVO;
+import db.UserDAO;
+import db.UserVO;
+import frame.intro.LogInFrame;
 import frame.main.RootFrame;
 
 
 public class Detail extends JPanel {
-
+	private static PostVO postVo = new PostVO();
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
 	 * @return
 	 * @wbp.parser.entryPoint
@@ -42,6 +43,9 @@ public class Detail extends JPanel {
 //		}
 	
 	public Detail() {
+		//로그인 된 아이디 값 확인.
+		String id_user = LogInFrame.userId;
+		
 		//setLayout과 setSize, setBounds에 따라 패널이  가운데 고정하는 크기에 영향이 생김.
 		setLayout(null);
 		setSize(500, 600);
@@ -68,16 +72,22 @@ public class Detail extends JPanel {
 //		});
 		detail_header_pic_btn.setIcon(iconCh);
 		add(detail_header_pic_btn);
-
-		JLabel detail_mainPic_Label = new JLabel("이미지");
-		detail_mainPic_Label.setBounds(42, 96, 318, 254);
-		add(detail_mainPic_Label);
-
+		
+		//아이디를 기준으로 닉네임 테이더베이스에서 불러오기
+		String nickName = UserDAO.getNickname(id_user);
 		JLabel detail_nickname_Label = new JLabel("닉네임");
 		detail_nickname_Label.setBounds(230, 20, 101, 30);
+		detail_nickname_Label.setText(nickName);
 		add(detail_nickname_Label);
+		
+		JLabel detail_mainPic_Label = new JLabel();
+		detail_mainPic_Label.setBounds(75, 96, 318, 254);
 
-		JTextPane detail_hash_input = new JTextPane();
+		JLabel detail_day_Label = new JLabel("게시일");
+		detail_day_Label.setBounds(49, 361, 122, 15);
+		add(detail_day_Label);
+
+		JLabel detail_hash_input = new JLabel();
 		detail_hash_input.setBounds(49, 399, 167, 30);
 		add(detail_hash_input);
 
@@ -99,9 +109,33 @@ public class Detail extends JPanel {
 		detail_Fix_btn.setBounds(230, 454, 97, 23);
 		add(detail_Fix_btn);
 
-		JLabel detail_day_Label = new JLabel("게시일:2020.08.28");
-		detail_day_Label.setBounds(49, 361, 122, 15);
-		add(detail_day_Label);
+		PostDAO postDao = new PostDAO();
+		try {
+			postVo = postDao.detailRead(id_user);
+			detail_day_Label.setText(postVo.getDate_post());
+			//DB에 저장되어 있는 이미지 경로 불러와서 사진 보여주기
+			String imgPath = postVo.getImg_post();
+			ImageIcon detail_img = new ImageIcon(imgPath);
+			Image detail_pic = detail_img.getImage(); // ImageIcon을 Image로 변환.(객체를 돌려준다.)
+			Image detail_picCh = detail_pic.getScaledInstance(250, 250, java.awt.Image.SCALE_SMOOTH);// 이미지 사이즈 조정
+			ImageIcon detail_iconCh = new ImageIcon(detail_picCh); // Image로 ImageIcon 생성
+			
+			
+			detail_mainPic_Label.setIcon(detail_iconCh);
+			//스크롤패널 버튼적용
+			add(detail_mainPic_Label);
+			
+			detail_hash_input.setText(postVo.getHash_post());
+			//int설정
+			int likeInt = postVo.getLike_post();
+			String textLike = Integer.toString(likeInt);
+			detail_like_Label.setText(textLike);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
+		
+		
 		
 		setVisible(true);
 
