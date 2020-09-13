@@ -49,13 +49,13 @@ public class LogInFrame {
 		final int HEIGHT = 900;
 
 		frame = new JFrame("InstaBook");
-		frame.getContentPane().setBackground(new Color(0, 0, 128));
+		frame.getContentPane().setBackground(new Color(0, 51, 102));
 		frame.setSize(WIDTH, HEIGHT);
 		frame.getContentPane().setLayout(null);
 
 		// 로그인패널 객체
 		logInPanel = new JPanel();
-		logInPanel.setBackground(new Color(0, 0, 128));
+		logInPanel.setBackground(new Color(0, 51, 102));
 
 		// id라벨
 		JLabel idLabel_login = new JLabel("ID");
@@ -85,7 +85,7 @@ public class LogInFrame {
 		JButton signUp_logIn = new JButton("SIGN UP");
 		signUp_logIn.setFont(new Font("굴림", Font.BOLD, 15));
 		signUp_logIn.setForeground(Color.WHITE);
-		signUp_logIn.setBackground(new Color(0, 0, 128));
+		signUp_logIn.setBackground(new Color(0, 51, 102));
 		signUp_logIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 

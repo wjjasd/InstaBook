@@ -2,24 +2,17 @@ package frame.main.profile;
 
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.time.Month;
-import java.time.MonthDay;
 import java.util.Calendar;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-
 import db.PostDAO;
 import db.PostVO;
-import db.UserDAO;
 import frame.intro.LogInFrame;
 import frame.main.RootFrame;
 
@@ -104,8 +97,8 @@ public class PostFix extends JPanel {
 					PostVO postSet = new PostVO();
 					// userDAO의 id_user값 기준으로 임의값 입력
 					postSet.setId_user(id_user);
-					//오늘 날짜 계산 부품
-					SimpleDateFormat sdf = new SimpleDateFormat("yy" +"."+"MM"+"."+"dd");
+					// 오늘 날짜 계산 부품
+					SimpleDateFormat sdf = new SimpleDateFormat("yy" + "." + "MM" + "." + "dd");
 					Calendar c1 = Calendar.getInstance();
 					String strToday = sdf.format(c1.getTime());
 					postSet.setDate_post(strToday);

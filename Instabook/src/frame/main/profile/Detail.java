@@ -49,7 +49,7 @@ public class Detail extends JPanel {
 		//setLayout과 setSize, setBounds에 따라 패널이  가운데 고정하는 크기에 영향이 생김.
 		setLayout(null);
 		setSize(500, 600);
-		setBounds(100, 100, 400, 510);
+		setBounds(51, 10, 492, 745); //양기정: 400,510 에서 -> 492,745로 변경 2020.07.13
 		
 		JButton detail_header_pic_btn  = new JButton();
 		ImageIcon img = new ImageIcon("..\\TheJoEnProject1\\Instabook\\src\\images\\myProfileImg.png");

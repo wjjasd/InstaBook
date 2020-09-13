@@ -57,7 +57,7 @@ public class PostPanel extends JPanel {
 		setLayout(null);
 		setSize(500, 600);
 		setVisible(true);
-		setBounds(100, 100, 400, 510);
+		setBounds(51, 10, 492, 745);
 
 		JButton post_mainPic_btn = new JButton("이미지 추가");
 		post_mainPic_btn.setBounds(68, 45, 260, 238);

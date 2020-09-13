@@ -31,6 +31,8 @@ public class RootFrame extends JFrame {
 	//디자인에 사용하는 임시 main
 	public static void main(String[] args) {
 		RootFrame root = new RootFrame();
+		root.getContentPane().setBackground(new Color(0, 51, 102));
+		root.homePn.setBounds(51, 10, 492, 745);
 		root.setVisible(true);
 	}
 	
@@ -39,7 +41,7 @@ public class RootFrame extends JFrame {
 		setSize(600, 900);
 		getContentPane().setLayout(null);
 		
-		getContentPane().setBackground(Color.GRAY);
+		getContentPane().setBackground(new Color(0, 51, 102));
 		getContentPane().add(homePn);
 		getContentPane().add(lookPn);
 		getContentPane().add(postPn);
@@ -56,7 +58,7 @@ public class RootFrame extends JFrame {
 
 		// 홈 버튼
 		JButton root_home_btn = new JButton("Home");
-		root_home_btn.setBounds(60, 692, 145, 42);
+		root_home_btn.setBounds(51,774,157,59);
 		root_home_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -73,7 +75,7 @@ public class RootFrame extends JFrame {
 
 		// 포스트 버튼
 		JButton root_post_btn = new JButton("게시물");
-		root_post_btn.setBounds(213, 692, 145, 42);
+		root_post_btn.setBounds(220,774,157,59);
 		root_post_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -90,7 +92,7 @@ public class RootFrame extends JFrame {
 
 		// 프로필 버튼
 		JButton root_profile_btn = new JButton("My Profile");
-		root_profile_btn.setBounds(367, 692, 145, 42);
+		root_profile_btn.setBounds(389,774,157,59);
 		root_profile_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -114,5 +116,4 @@ public class RootFrame extends JFrame {
 		setVisible(true);
 
 	}
-
 }

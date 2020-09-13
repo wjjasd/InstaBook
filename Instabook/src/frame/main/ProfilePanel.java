@@ -99,7 +99,7 @@ public class ProfilePanel extends JPanel {
 		// frame에서 패널 위치 설정 및 레이아웃 크기
 		setLayout(null);
 		setSize(500, 600);
-		setBounds(100, 100, 400, 510);
+		setBounds(51, 10, 492, 745);
 
 		JButton profile_mainPic_btn = new JButton("사진");
 		profile_mainPic_btn.addActionListener(new ActionListener() {

@@ -15,6 +15,7 @@ public class UserDAO {
 	private final static String password = "1234";
 	private static Connection con;
 
+	//DB커넥터 초기화
 	private static void setDb_user() throws SQLException {
 
 		// 1. connector 설정
@@ -34,14 +35,15 @@ public class UserDAO {
 
 	}
 
+	//회원가입
 	public static boolean signUp(UserVO userDataSet) {
 		boolean result = false;
 		
-		String id = userDataSet.getId_user();
-		String pw = userDataSet.getPw_user();
-		String nickName = userDataSet.getId_user();
-		String gender = userDataSet.getGender_user();
-		String birth = userDataSet.getBirth_user();
+		String id = userDataSet.getId_user();			//회원아이디
+		String pw = userDataSet.getPw_user();			//패스워드
+		String nickName = userDataSet.getId_user();		//닉네임
+		String gender = userDataSet.getGender_user();	//성별
+		String birth = userDataSet.getBirth_user();		//출생일
 
 		try {
 			setDb_user();
@@ -71,6 +73,7 @@ public class UserDAO {
 		return result;
 	}
 
+	//로그인
 	public static String logIn(String id) {
 		String pw = "";
 
@@ -103,6 +106,7 @@ public class UserDAO {
 
 	}
 
+	//프로필 사진 업데이트
 	public static boolean updateProfile(String userId, String filePath) {
 		boolean result = false;
 		try {
@@ -132,6 +136,7 @@ public class UserDAO {
 		return result;
 	}
 
+	//프로필 사진 로드
 	public static String getProfile(String userId) {
 		String url = "";
 		try {
@@ -164,6 +169,7 @@ public class UserDAO {
 		return url;
 	}
 
+	//아이디 확인
 	public static boolean idcheck(String userId) {
 
 		String dbId = "";
@@ -205,6 +211,7 @@ public class UserDAO {
 
 	}
 	
+	//성별 가져오기
 	public static String getGender(String userId) {
 		String gender = null;
 		
@@ -246,6 +253,7 @@ public class UserDAO {
 		return gender;
 	}
 	
+	//출생일 가져오기
 	public static String getBirth(String userId) {
 		String birth = null;
 		
@@ -287,6 +295,7 @@ public class UserDAO {
 		return birth;
 	}
 	
+	//닉네임 가져오기
 	public static String getNickname(String userId) {
 		String nickname = null;
 		
@@ -328,9 +337,11 @@ public class UserDAO {
 		return nickname;
 	}
 	
+	//회원정보 수정
 	public static boolean updateUserInfo(UserVO userDataSet) {
 		boolean result = false;
 		
+		//수정가능 항목: 패스워드, 닉네임, 성별, 출생일
 		String id = userDataSet.getId_user();
 		String pw = userDataSet.getPw_user();
 		String nickName = userDataSet.getId_user();

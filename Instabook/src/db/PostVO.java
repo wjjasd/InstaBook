@@ -5,8 +5,8 @@ public class PostVO {
 	//String id_user, String date_post, String hash_post, String img_post, int like_post2
 	
 	private String id_user;
-	private String date_post;
-	private String hash_post;
+	 String date_post;
+	 String hash_post;
 	private String img_post;
 	private int like_post;
 	

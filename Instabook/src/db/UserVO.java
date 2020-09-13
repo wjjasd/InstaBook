@@ -2,12 +2,11 @@ package db;
 
 public class UserVO {
 	
-	private String id_user;
-	private String pw_user;
-	private String nickname_user;
-	private String gender_user;
-	private String birth_user;
-	
+	private String id_user;			//아이디
+	private String pw_user;			//패스워드
+	private String nickname_user;	//닉네임
+	private String gender_user;		//성별
+	private String birth_user;		//출생일
 	
 	public String getId_user() {
 		return id_user;
